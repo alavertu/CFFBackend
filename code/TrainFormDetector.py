@@ -132,7 +132,7 @@ class TrainFormDetector(object):
             train_loss_history = []
             val_loss_history = []
 
-            best_train_loss = 100
+            best_train_loss = 50
 
             model = TemplateNet(num_classes)
             model.to(device)
