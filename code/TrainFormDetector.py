@@ -133,7 +133,7 @@ class TrainFormDetector(object):
             val_loss_history = []
 
             model = TemplateNet(num_classes)
-
+            model.to(device)
             criterion = nn.CrossEntropyLoss()
             optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
             criterion.to(device)

@@ -3,7 +3,7 @@ import os
 import numpy as np
 from tqdm import tqdm
 from skimage import io, img_as_float32
-from skimage.color import rgb2gray
+from skimage.color import rgb2gray, rgba2rgb
 
 from torch.utils.data import Dataset
 
@@ -83,7 +83,7 @@ class TemplateClassifierDataset(Dataset):
         ):
             samp_file = os.path.join(self.negatives_path, sample)
             temp_im = io.imread(samp_file)
-            temp_im = rgb2gray(temp_im)
+            temp_im = rgb2gray(rgba2rgb(temp_im))
             temp_im = img_as_float32(temp_im)
             if self.pre_proc_transforms:
                 temp_im = self.pre_proc_transforms(temp_im)
