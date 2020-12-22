@@ -78,20 +78,17 @@ class TemplateClassifierDataset(Dataset):
     def load_data(self):
         for sample in tqdm(
             os.listdir(self.negatives_path)[:1000],
-            disable=self.verbose,
+            disable=self.verbose == False,
             desc="Loading negatives:",
         ):
-            try:
-                samp_file = os.path.join(self.negatives_path, sample)
-                temp_im = io.imread(samp_file)
-                temp_im = rgb2gray(temp_im)
-                temp_im = img_as_float32(temp_im)
-                if self.pre_proc_transforms:
-                    temp_im = self.pre_proc_transforms(temp_im)
-                self.files.append(samp_file)
-                self.data.append([temp_im, 0])
-            except:
-                print("Sample failed: ", os.path.join(self.negatives_path, sample))
+            samp_file = os.path.join(self.negatives_path, sample)
+            temp_im = io.imread(samp_file)
+            temp_im = rgb2gray(temp_im)
+            temp_im = img_as_float32(temp_im)
+            if self.pre_proc_transforms:
+                temp_im = self.pre_proc_transforms(temp_im)
+            self.files.append(samp_file)
+            self.data.append([temp_im, 0])
 
         if self.bootstrap_template or self.positives_path:
             n_positives = len(self.class_2_index) - 1
@@ -112,7 +109,7 @@ class TemplateClassifierDataset(Dataset):
                 if self.bootstrap_template:
                     for j in tqdm(
                         range(len(self.files)),
-                        disable=self.verbose,
+                        disable=self.verbose == False,
                         desc="Augmented Template Creation:",
                     ):
                         self.data.append(

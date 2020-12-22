@@ -75,6 +75,8 @@ class TrainFormDetector(object):
         )
 
         # Load training data
+        if self.verbose:
+            print("Loading training data")
         self.train_data = TemplateClassifierDataset(
             path_2_positives,
             path_2_train_negatives,
@@ -91,7 +93,8 @@ class TrainFormDetector(object):
                 transforms.Normalize(form_mu, form_std),
             ]
         )
-
+        if self.verbose:
+            print("Loading validation data")
         self.val_data = TemplateClassifierDataset(
             path_2_positives,
             path_2_val_negatives,
@@ -142,7 +145,7 @@ class TrainFormDetector(object):
                 for images, labels in tqdm(
                     self.train_loader,
                     total=len(self.train_loader),
-                    disable=self.verbose,
+                    disable=self.verbose == False,
                     desc=f"Epoch {epoch}:",
                 ):
                     images = images.to(device, dtype=torch.float)
