@@ -244,7 +244,7 @@ def parse_command_line():
         "-t",
         "--negatives_val_dir",
         help="Directory containing negative training examples",
-        default="../data/train/negative/",
+        default="../data/val/negative/",
     )
     parser.add_argument(
         "-k", "--train_k_models", help="Number of models to train", default=5, type=int
