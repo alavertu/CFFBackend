@@ -170,7 +170,10 @@ class TrainFormDetector(object):
                 _ = model.eval()
                 with torch.no_grad():
                     val_loss = 0
-                    for images, labels in tqdm(self.val_loader):
+                    for images, labels in tqdm(self.val_loader,
+                        total=len(self.val_loader),
+                        disable=self.verbose == False,
+                        desc=f"Epoch {epoch} Val:"):
                         images = images.to(device, dtype=torch.float)
 
                         labels = torch.LongTensor(labels)
