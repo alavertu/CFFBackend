@@ -121,16 +121,18 @@ class TrainFormDetector(object):
         model_val_history = []
 
         self.train_loader = DataLoader(
-            dataset=self.train_data, batch_size=batch_size, shuffle=True, num_workers=4
+            dataset=self.train_data, batch_size=batch_size, shuffle=True, num_workers=10
         )
         self.val_loader = DataLoader(
-            dataset=self.val_data, batch_size=batch_size, num_workers=4
+            dataset=self.val_data, batch_size=batch_size, num_workers=10
         )
 
         #### GO THROUGH CODE BELOW
         for i in range(k):
             train_loss_history = []
             val_loss_history = []
+
+            best_train_loss = 100
 
             model = TemplateNet(num_classes)
             model.to(device)
