@@ -121,10 +121,10 @@ class TrainFormDetector(object):
         model_val_history = []
 
         self.train_loader = DataLoader(
-            dataset=self.train_data, batch_size=batch_size, shuffle=True, num_workers=10
+            dataset=self.train_data, batch_size=batch_size, shuffle=True, num_workers=50
         )
         self.val_loader = DataLoader(
-            dataset=self.val_data, batch_size=batch_size, num_workers=10
+            dataset=self.val_data, batch_size=batch_size, num_workers=50
         )
 
         #### GO THROUGH CODE BELOW
