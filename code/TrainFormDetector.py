@@ -1,6 +1,7 @@
 import argparse
 import copy
 import os
+import json
 
 import numpy as np
 from imgaug import augmenters as iaa
@@ -83,7 +84,7 @@ class TrainFormDetector(object):
             transforms=train_transf,
             verbose=self.verbose,
         )
-
+        json.dump(self.train_data.index_2_class, open(os.path.join(self.out_path, "model_pred_key.json"), "w+"))
         # Data transformations for standard input
         val_transf = transforms.Compose(
             [
